@@ -107,8 +107,8 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
 
               /*
                   -- GENERATED --
-                  DATE: 2023-03-31T16:18:43.040
-                  SOURCE: /Users/beichenhu/IntelliJProjects/Lab-2-Ebean/Frontend/app/views/login.scala.html
+                  DATE: 2023-03-31T16:59:20.011046
+                  SOURCE: /Users/beichenhu/IntelliJProjects/play-java-twirl-seed/app/views/login.scala.html
                   HASH: 5df88097547eb15c45c737dfc807bafefd37940b
                   MATRIX: 948->1|1068->28|2678->1613|2693->1619|2744->1649|3499->2377|3535->2404|3574->2405|3631->2434|3734->2510|3771->2526|3828->2555|3924->2620|3977->2645|4205->2846|4220->2852|4265->2876
                   LINES: 28->1|33->2|62->31|62->31|62->31|78->47|78->47|78->47|79->48|80->49|80->49|81->50|83->52|84->53|87->56|87->56|87->56

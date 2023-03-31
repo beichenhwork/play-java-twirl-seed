@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/Users/beichenhu/IntelliJProjects/Lab-2-Ebean/Frontend/conf/routes
-// @DATE:Fri Mar 31 15:28:48 CDT 2023
+// @SOURCE:/Users/beichenhu/IntelliJProjects/play-java-twirl-seed/conf/routes
+// @DATE:Fri Mar 31 16:59:19 CDT 2023
 
 import play.api.routing.JavaScriptReverseRoute
 

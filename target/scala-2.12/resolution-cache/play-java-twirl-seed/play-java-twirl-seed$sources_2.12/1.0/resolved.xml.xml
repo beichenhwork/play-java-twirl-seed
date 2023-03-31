@@ -4,7 +4,7 @@
 		module="play-java-twirl-seed$sources_2.12"
 		revision="1.0"
 		status="integration"
-		publication="20230331164123"
+		publication="20230331165513"
 	/>
 	<configurations>
 		<conf name="universal" visibility="public" description=""/>
