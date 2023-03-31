@@ -1,0 +1,56 @@
+2023-03-31 16:17:36,866 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-9 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2023-03-31 16:17:36,875 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-9 - Application started (Dev)
+2023-03-31 16:17:36,875 [WARN] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-9 - 
+You are using the deprecated global state to set and access the current running application. If you
+need an instance of Application, set play.allowGlobalApplication = false and use Dependency Injection instead.
+        
+2023-03-31 16:18:46,175 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-9 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2023-03-31 16:18:46,177 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-9 - Application started (Dev)
+2023-03-31 16:18:46,177 [WARN] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-9 - 
+You are using the deprecated global state to set and access the current running application. If you
+need an instance of Application, set play.allowGlobalApplication = false and use Dependency Injection instead.
+        
+2023-03-31 16:19:43,666 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - UserController user sign up backend error
+2023-03-31 16:21:23,909 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-9 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2023-03-31 16:21:23,912 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-9 - Application started (Dev)
+2023-03-31 16:21:23,912 [WARN] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-9 - 
+You are using the deprecated global state to set and access the current running application. If you
+need an instance of Application, set play.allowGlobalApplication = false and use Dependency Injection instead.
+        
+2023-03-31 16:21:29,140 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - UserController user sign up backend error
+2023-03-31 16:21:51,582 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-6 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2023-03-31 16:21:51,586 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-6 - Application started (Dev)
+2023-03-31 16:21:51,586 [WARN] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-6 - 
+You are using the deprecated global state to set and access the current running application. If you
+need an instance of Application, set play.allowGlobalApplication = false and use Dependency Injection instead.
+        
+2023-03-31 16:21:56,438 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - UserController user sign up backend error
+2023-03-31 16:22:35,037 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current Edit User Info: {"id":14,"username":"jml","password":"123","firstName":"jianmin","lastName":"li"}
+2023-03-31 16:22:56,454 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current Edit User Info: {"id":14,"username":"jml","password":"123","firstName":"jianmin","lastName":"li"}
+2023-03-31 16:23:28,873 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current User Info: {"id":14,"username":"jml","password":"123","firstName":"jianmin","lastName":"li"}
+2023-03-31 16:23:39,329 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current Edit User Info: {"id":14,"username":"jml","password":"123","firstName":"jianmin","lastName":"li"}
+2023-03-31 16:23:50,022 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current Edit User Info: {"id":14,"username":"jml","password":"123","firstName":"ahahah","lastName":"gegelgege"}
+2023-03-31 16:23:55,366 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - UserController.loginHandler exception: java.util.NoSuchElementException: No value present
+2023-03-31 16:24:05,327 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current Edit User Info: {"id":14,"username":"jml","password":"123","firstName":"ahahah","lastName":"gegelgege"}
+2023-03-31 16:24:43,404 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - UserController.loginHandler exception: java.util.NoSuchElementException: No value present
+2023-03-31 16:25:03,527 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-shutdown-hook-1 - Stopping server...

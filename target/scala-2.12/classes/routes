@@ -1,0 +1,30 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+######################################### Home Page ####################################################################
+GET     /                           controllers.HomeController.index()
+######################################### Home Page ####################################################################
+
+
+######################################### Assets #######################################################################
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+######################################### Assets #######################################################################
+
+
+######################################### Login Page ###################################################################
+GET     /login                      controllers.UserController.loginHandler()
+######################################### Login Page ###################################################################
+
+
+######################################### Users #### ###################################################################
+GET     /detail/:message            controllers.UserController.detailPage(message: String)
+GET     /signup                     controllers.UserController.signup()
+GET     /register                   controllers.UserController.signupHandler()
+GET     /edit                       controllers.UserController.editPage()
+GET     /editPOST                   controllers.UserController.editHandler()
+######################################### Users #### ###################################################################
+
+
