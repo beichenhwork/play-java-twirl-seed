@@ -4,7 +4,7 @@
 
 # An example controller showing a sample home page
 ######################################### Home Page ####################################################################
-GET     /                           controllers.HomeController.index()
+GET     /                           controllers.HomeController.index(request: Request)
 ######################################### Home Page ####################################################################
 
 
@@ -15,16 +15,17 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 
 ######################################### Login Page ###################################################################
-GET     /login                      controllers.UserController.loginHandler()
+GET      /login                      controllers.UserController.loginPage(request: Request)
+POST     /login                      controllers.UserController.loginHandler(request: Request)
 ######################################### Login Page ###################################################################
 
 
 ######################################### Users #### ###################################################################
-GET     /detail/:message            controllers.UserController.detailPage(message: String)
+GET     /detail                     controllers.UserController.detailPage(request: Request)
 GET     /signup                     controllers.UserController.signup()
-GET     /register                   controllers.UserController.signupHandler()
-GET     /edit                       controllers.UserController.editPage()
-GET     /editPOST                   controllers.UserController.editHandler()
+GET     /register                   controllers.UserController.signupHandler(request: Request)
+GET     /edit                       controllers.UserController.editPage(request: Request)
+POST    /editPOST                   controllers.UserController.editHandler(request: Request)
 ######################################### Users #### ###################################################################
 
 

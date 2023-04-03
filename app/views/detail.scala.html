@@ -1,4 +1,4 @@
-@(message: String, userinfo: User)
+@(userinfo: User)
 
 <!DOCTYPE html>
 <html>
@@ -8,8 +8,6 @@
                 color: #57a957">
                 <strong>Play User Detail Page Demo</strong>
             </h1>
-            <p class="focused" style="font-size: 20px;
-                color: #3F51B5">@message</p>
         </header>
 
         @if(userinfo.getId()!=null) {

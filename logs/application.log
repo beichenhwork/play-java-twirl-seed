@@ -1,22 +1,21 @@
-2023-03-31 17:03:46,923 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-7 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2023-04-03 16:59:27,004 [WARN] from play.api.Configuration in play-dev-mode-akka.actor.default-dispatcher-8 - application.conf @ file:/Users/smu_cs_sd/Documents/play-java-twirl-seed/target/scala-2.13/classes/application.conf: 25: session.cookieName is deprecated, use play.http.session.cookieName instead
+2023-04-03 16:59:27,004 [WARN] from play.api.Configuration in play-dev-mode-akka.actor.default-dispatcher-8 - application.conf @ file:/Users/smu_cs_sd/Documents/play-java-twirl-seed/target/scala-2.13/classes/application.conf: 28: session.secure is deprecated, use play.http.session.secure instead
+2023-04-03 16:59:27,004 [WARN] from play.api.Configuration in play-dev-mode-akka.actor.default-dispatcher-8 - application.conf @ file:/Users/smu_cs_sd/Documents/play-java-twirl-seed/target/scala-2.13/classes/application.conf: 36: session.httpOnly is deprecated, use play.http.session.httpOnly instead
+2023-04-03 16:59:27,015 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-8 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
-    play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
 
-2023-03-31 17:03:46,933 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-7 - Application started (Dev)
-2023-03-31 17:03:46,933 [WARN] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-7 - 
+2023-04-03 16:59:27,031 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-8 - Application started (Dev)
+2023-04-03 16:59:27,031 [WARN] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-8 - 
 You are using the deprecated global state to set and access the current running application. If you
 need an instance of Application, set play.allowGlobalApplication = false and use Dependency Injection instead.
         
-2023-03-31 17:04:24,107 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - UserController user sign up backend error
-2023-03-31 17:05:50,299 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - UserController user sign up backend error
-2023-03-31 17:06:20,597 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current Edit User Info: {"id":15,"username":"test1234","password":"123","firstName":"testfirst name","lastName":"test last name"}
-2023-03-31 17:06:28,239 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current Edit User Info: {"id":15,"username":"test1234","password":"123","firstName":"testfirst name1111","lastName":"test last name11"}
-2023-03-31 17:06:39,334 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current Edit User Info: {"id":15,"username":"test1234","password":"123","firstName":"testfirst name1111","lastName":"test last name11"}
-2023-03-31 17:06:48,856 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current Edit User Info: {"id":15,"username":"test1234","password":"123","firstName":"tfirst nam","lastName":"test last "}
-2023-03-31 17:06:50,683 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current User Info: {"id":15,"username":"test1234","password":"123","firstName":"tfirst nam","lastName":"test last "}
-2023-03-31 17:06:52,799 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current Edit User Info: {"id":15,"username":"test1234","password":"123","firstName":"tfirst nam","lastName":"test last "}
-2023-03-31 17:06:55,606 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current Edit User Info: {"id":15,"username":"test1234","password":"123","firstName":"tfirst nam","lastName":"test last "}
-2023-03-31 17:06:56,476 [INFO] from application in application-akka.actor.default-dispatcher-2 - Current User Info: {"id":15,"username":"test1234","password":"123","firstName":"tfirst nam","lastName":"test last "}
-2023-03-31 17:06:59,053 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - UserController.loginHandler exception: java.util.NoSuchElementException: No value present
+2023-04-03 16:59:29,067 [INFO] from application in application-akka.actor.default-dispatcher-4 - Current User Info: {"id":1,"username":"junhaos@smu.edu","password":"junhaos","firstName":"Junhao-0","lastName":"Shen"}
+2023-04-03 16:59:31,084 [INFO] from application in application-akka.actor.default-dispatcher-4 - Current Edit User Info: {"id":1,"username":"junhaos@smu.edu","password":"junhaos","firstName":"Junhao-0","lastName":"Shen"}
+2023-04-03 17:00:02,342 [INFO] from application in application-akka.actor.default-dispatcher-4 - Current User Info: {"id":2,"username":"junhaos1@smu.edu","password":"junhaos","firstName":"pppp","lastName":"Test"}
+2023-04-03 17:00:07,406 [INFO] from application in application-akka.actor.default-dispatcher-4 - Current Edit User Info: {"id":2,"username":"junhaos1@smu.edu","password":"junhaos","firstName":"pppp","lastName":"Test"}
+2023-04-03 17:17:13,325 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-7-thread-9 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 35000 milliseconds timeout
+2023-04-03 17:17:13,326 [INFO] from play.core.server.AkkaHttpServer in pool-7-thread-9 - Stopping Akka HTTP server...
+2023-04-03 17:17:13,330 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:9000
+2023-04-03 17:17:13,358 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-16 - Running provided shutdown stop hooks

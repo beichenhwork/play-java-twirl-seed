@@ -10,6 +10,7 @@ import play.data.Form;
 import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.libs.concurrent.HttpExecutionContext;
 import play.libs.ws.WSResponse;
@@ -19,15 +20,15 @@ import utils.RESTfulCalls;
 import views.html.*;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.concurrent.CompletionStage;
-
-import static controllers.Applications.*;
 
 /**
  * @description: user service functions
  * @author: Junhao Shen, Beichen Hu
  * @create: 2023-03-30
  */
+@Singleton
 public class UserController extends Controller {
 
     @Inject
@@ -36,8 +37,10 @@ public class UserController extends Controller {
     @Inject
     Config config;
 
+    @Inject RESTfulCalls restfulCalls;
+
     private FormFactory formFactory;
-    private  Form<User> userForm;
+    private Form<User> userForm;
     private UserService userService;
 
     /********************************************** CONSTRUCTOR *******************************************************/
@@ -63,25 +66,20 @@ public class UserController extends Controller {
      * render user detail page
      * @return
      */
-    public Result detailPage(String message){
-        try{
-            checkLoginStatus();
-            String userId = session("id");
-
-            JsonNode userNode = RESTfulCalls.getAPI(RESTfulCalls.getBackendAPIUrl(config, Constants.USER_DETAIL_BY_ID + userId));
-
+    public Result detailPage(Http.Request request) {
+        return request.session().get("id").map(id -> {
+            JsonNode userNode = restfulCalls.getAPI(RESTfulCalls.getBackendAPIUrl(config, Constants.USER_DETAIL_BY_ID + id));
             if(userNode == null || userNode.has("error")){
                 Logger.debug("UserController.detailPage cannot find user from backend");
-                return ok(login.render("Cannot go to detail page, please log in again."));
+                return redirect("/login").flashing("error", "There is no user, please log in again.");
             }else{
                 Logger.info("Current User Info: " + userNode.toString());
                 User curUser = Json.fromJson(userNode, User.class);
-                return ok(detail.render(message, curUser));
+                return ok(views.html.detail.render(curUser));
             }
-        } catch (Exception e){
-            Logger.debug("UserController.detailPage exception: "+ e.toString());
-            return ok(login.render("Fail to edit, please log in again. "));
-        }
+        }).orElseGet(() -> {
+            return redirect("/login").flashing("error", "Cannot go to detail page, please log in again.");
+        });
 
     }
 
@@ -89,23 +87,21 @@ public class UserController extends Controller {
      * render user edit page
      * @return
      */
-    public Result editPage() {
-        checkLoginStatus();
-        String userId = session("id");
-        try{
-            JsonNode userNode = RESTfulCalls.getAPI(RESTfulCalls.getBackendAPIUrl(config, Constants.USER_DETAIL_BY_ID + userId));
-            if(userNode == null || userNode.has("error")){
-                Logger.debug("UserController.editPage cannot find user from backend");
-                return ok(login.render("Update failed, please log in again."));
-            }else{
-                Logger.info("Current Edit User Info: " + userNode.toString());
-                User curUser = Json.fromJson(userNode, User.class);
-                return ok(edit.render(curUser));
-            }
-        } catch (Exception e){
-            Logger.debug("UserController.editPage exception: "+ e.toString());
-            return ok(login.render("Fail to edit, please log in again. "));
-        }
+    public Result editPage(Http.Request request) {
+        return request.session().get("id")
+                .map(id -> {
+                    String userId = id;
+                    JsonNode userNode = restfulCalls.getAPI(RESTfulCalls.getBackendAPIUrl(config, Constants.USER_DETAIL_BY_ID + userId));
+                    if(userNode == null || userNode.has("error")){
+                        Logger.debug("UserController.editPage cannot find user from backend");
+                        return redirect("/login").flashing("error", "There is no user, please log in again.");
+                    }else{
+                        Logger.info("Current Edit User Info: " + userNode.toString());
+                        User curUser = Json.fromJson(userNode, User.class);
+                        return ok(edit.render(curUser));
+                    }
+                })
+                .orElseGet(() -> redirect("/login").flashing("error", "Cannot go to edit page, please log in again."));
     }
 
     /******************************************* END USER SERVICE PAGE ************************************************/
@@ -113,35 +109,39 @@ public class UserController extends Controller {
 
     /*************************************************** USER LOGIN ***************************************************/
     /**
+     * render user login page
+     * @return login page
+     */
+    public Result loginPage(Http.Request request) {
+        return ok(views.html.login.render(request));
+    }
+
+    public Result logout() {
+        return redirect("/").withNewSession();
+    }
+
+    /**
      * This method is login handler, check username and password then login to user detail page.
      * @return
      */
-    public Result loginHandler() {
+    public Result loginHandler(Http.Request request) {
         try {
-            Form loginForm = formFactory.form().bindFromRequest();
-
+            Form loginForm = userForm.bindFromRequest(request);
             if (loginForm.hasErrors()) {
-                return badRequest(login.render("Cannot Login."));  // send parameter like register so that user could know
+                return redirect("/login").flashing("error","login form errors");  // send parameter like register so that user could know
             } else {
-
                 String username = loginForm.field("username").value().get();
                 String password = loginForm.field("password").value().get();
-
                 ObjectNode jsonData = Json.newObject();
                 jsonData.put("username", username);
                 jsonData.put("password", password);
-
-                JsonNode response = RESTfulCalls.postAPI(RESTfulCalls.getBackendAPIUrl(config, Constants.USER_LOGIN), jsonData);
+                JsonNode response = restfulCalls.postAPI(RESTfulCalls.getBackendAPIUrl(config, Constants.USER_LOGIN), jsonData);
                 if (response.has("false") || response.has("error")) {
-                    flash("error", "Invalid email or password");
-                    return ok(login.render("Invalid email or password"));
+                    return redirect("/login").flashing("error", "Invalid email or password");
                 } else {
                     System.out.println("Pass User Authenticate... And User info: " + response.toString());
                     User curUser = Json.fromJson(response, User.class);
-                    session().clear();
-                    session("username", curUser.getUsername());
-                    session("id", curUser.getId()+"");
-                    return ok(detail.render("Login Successful", curUser));
+                    return redirect("/detail").addingToSession(request, "id", curUser.getId().toString());
                 }
 
             }
@@ -157,26 +157,26 @@ public class UserController extends Controller {
      * This method intends to help user register a new account in system.
      * @return
      */
-    public Result signupHandler() {
+    public Result signupHandler(Http.Request request) {
         try{
-            Form<User> registrationForm = formFactory.form(User.class).bindFromRequest();
+            Form<User> registrationForm = formFactory.form(User.class).bindFromRequest(request);
             if (registrationForm.hasErrors()){
-                return badRequest(register.render("Fields error, please sign up again."));
+                return badRequest(views.html.register.render("Fields error, please sign up again."));
             }
 
             ObjectNode jsonData = (ObjectNode)(Json.toJson(registrationForm.rawData()));
-            JsonNode response = RESTfulCalls.postAPI(RESTfulCalls.getBackendAPIUrl(config, Constants.USER_REGISTER_POST), jsonData);
+            JsonNode response = restfulCalls.postAPI(RESTfulCalls.getBackendAPIUrl(config, Constants.USER_REGISTER_POST), jsonData);
             if(!response.has("error")){
-                return ok(login.render("Register successfully!"));
+                return redirect("/login").flashing("success", "Register successfully, please log in.");
             } else{
                 Logger.debug("UserController user sign up backend error");
-                return badRequest(login.render(response.get("error").asText()));
+                return redirect("/register").flashing("error", "Register failed, please try again.");
             }
 
         } catch (Exception e){
             e.printStackTrace();
             Logger.debug("UserController user sign up Exception: " + e.toString());
-            return badRequest(login.render("Register failed, please try it again."));
+            return redirect("/register").flashing("error", "Register failed, please try again.");
         }
     }
     /********************************************** END USER SIGN UP **************************************************/
@@ -187,28 +187,27 @@ public class UserController extends Controller {
      *
      * @return redirect to user detail page if the update succeeds or to log in page if update failed
      */
-    public Result editHandler() {
+    public Result editHandler(Http.Request request){
         try {
-            checkLoginStatus();
-            Form<User> userForm = formFactory.form(User.class).bindFromRequest();
+            Form<User> userForm = formFactory.form(User.class).bindFromRequest(request);
             if (userForm.hasErrors()){
-                return badRequest(login.render("Fail to update User Info Sorry! Please log in again. "));
+                return redirect("/login").flashing("error","Fail to update User Info Sorry! Please log in again. ");
             } else{
                 ObjectNode jsonData = (ObjectNode)(Json.toJson(userForm.rawData()));
                 // jsonData.put("id", session("id"));
                 System.out.println("User Edit Info From Page: " + jsonData.toString());
-                JsonNode response = RESTfulCalls.postAPI(RESTfulCalls.getBackendAPIUrl(config, Constants.USER_UPDATE_POST), jsonData);
+                JsonNode response = restfulCalls.postAPI(RESTfulCalls.getBackendAPIUrl(config, Constants.USER_UPDATE_POST), jsonData);
                 if(response == null || response.has("error")){
                     Logger.debug("User Edit Failed.");
-                    return badRequest(login.render("Update User Info failed. Please log in again. "));
+                    return redirect("/login").flashing("error","Fail to update User Info Sorry! Please log in again. ");
                 } else{
                     User currentUser = Json.fromJson(response, User.class);
-                    return ok(detail.render("Update successfully. ", currentUser));
+                    return ok(views.html.detail.render(currentUser));
                 }
             }
         } catch (Exception e) {
             Logger.debug("UserController.editHandler exception: " + e.toString());
-            return ok(login.render("Fail to update User Info Sorry! Please log in again. "));
+            return redirect("/login").flashing("error","Fail to update User Info Sorry! Please log in again. ");
         }
     }
     /******************************************* END USER EDIT ****** *************************************************/
