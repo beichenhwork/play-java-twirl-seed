@@ -1,5 +1,6 @@
 package controllers;
 
+import play.mvc.Http;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -22,9 +23,8 @@ public class HomeController extends Controller {
     /**
      * Index page
      */
-    public Result index() {
-        session().clear();
-        return ok(views.html.login.render("Welcome to SMU-CS-HUB."));
+    public Result index(Http.Request request) {
+        return redirect("/login").flashing("success", "Welcome to SMU-CS-HUB!");
     }
 
 }

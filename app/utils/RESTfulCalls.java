@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.typesafe.config.Config;
 import play.Logger;
-import play.api.Play;
 import play.libs.Json;
 import play.libs.ws.WSClient;
 import play.libs.ws.WSResponse;
@@ -15,16 +14,17 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
-
+import javax.inject.Inject;
 /**
  * @description: RESTful call functions
  * @author:  Beichen Hu
  * @create: 2023-03-30
  */
 public class RESTfulCalls {
-    private static final WSClient WS;
-    static {
-        WS = Play.current().injector().instanceOf(WSClient.class);
+    private final WSClient WS;
+    @Inject
+    public RESTfulCalls(WSClient ws) {
+        this.WS = ws;
     }
 
     /**
@@ -66,7 +66,7 @@ public class RESTfulCalls {
      * @param apiString absolute path of the REST API to be called
      * @return
      */
-    public static JsonNode getAPI(String apiString){
+    public JsonNode getAPI(String apiString){
         if(WS==null){
             Logger.info("error");
         }
@@ -108,7 +108,7 @@ public class RESTfulCalls {
      * @param jsonData data passed through json format
      * @return
      */
-    public static JsonNode postAPI(String apiString, JsonNode jsonData){
+    public JsonNode postAPI(String apiString, JsonNode jsonData){
         if(WS==null){
             Logger.info("error");
         }

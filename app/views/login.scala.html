@@ -1,4 +1,5 @@
-@(authorizeMessage: String)
+@import play.mvc.Http
+@()(implicit request: Http.Request)
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,7 +29,7 @@
         <div class="row">
             <div class="card col s4 offset-s4 ">
                 <div class="card-panel">
-                    <form action="@routes.UserController.loginHandler()" method="GET">
+                    <form action="@routes.UserController.loginHandler()" method="POST">
 
                         <div class="row">
                             <div class="input-field col s12">
@@ -44,9 +45,14 @@
                                 <label for="password">Password</label>
                             </div>
                         </div>
-                        @if(authorizeMessage!= null){
+                        @if(request.flash.get("error").isEmpty == false) {
                             <div class="alert alert-primary" role="alert">
-                            @authorizeMessage
+                            @request.flash.get("error")
+                            </div>
+                            <br>
+                        }else{
+                            <div class="alert alert-primary" role="alert">
+                                @request.flash.get("success")
                             </div>
                             <br>
                         }
