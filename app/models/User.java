@@ -1,6 +1,8 @@
 package models;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
+import play.libs.Json;
 
 /**
  * @description: user model. Make sure the fields are the same as backend user model.
@@ -56,6 +58,17 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    public static User deserialize(JsonNode json){
+        if (json == null) {
+            throw new NullPointerException("User node should not be null to be serialized.");
+        }
+        User oneUser = Json.fromJson(json, User.class);
+
+        // oneUser.setProjectZone(Project.deserialize(json.findPath("project")));
+        return oneUser;
     }
 
 }

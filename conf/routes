@@ -22,8 +22,8 @@ POST     /login                      controllers.UserController.loginHandler(req
 
 ######################################### Users #### ###################################################################
 GET     /detail                     controllers.UserController.detailPage(request: Request)
-GET     /signup                     controllers.UserController.signup()
-GET     /register                   controllers.UserController.signupHandler(request: Request)
+GET     /signup                     controllers.UserController.signup(request: Request)
+POST    /register                   controllers.UserController.signupHandler(request: Request)
 GET     /edit                       controllers.UserController.editPage(request: Request)
 POST    /editPOST                   controllers.UserController.editHandler(request: Request)
 ######################################### Users #### ###################################################################

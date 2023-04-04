@@ -13,15 +13,13 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.libs.concurrent.HttpExecutionContext;
-import play.libs.ws.WSResponse;
-import services.UserService;
+
 import utils.Constants;
 import utils.RESTfulCalls;
 import views.html.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.concurrent.CompletionStage;
 
 /**
  * @description: user service functions
@@ -41,12 +39,11 @@ public class UserController extends Controller {
 
     private FormFactory formFactory;
     private Form<User> userForm;
-    private UserService userService;
+
 
     /********************************************** CONSTRUCTOR *******************************************************/
     @Inject
-    public UserController(FormFactory formFactory, UserService userService) {
-        this.userService = userService;
+    public UserController(FormFactory formFactory) {
         this.formFactory = formFactory;
         this.userForm = formFactory.form(User.class);
     }
@@ -58,8 +55,8 @@ public class UserController extends Controller {
     /**
      * render user signup page
      */
-    public Result signup() {
-        return ok(views.html.register.render("Welcome to register new account in SMU-CS-HUB!"));
+    public Result signup(Http.Request request) {
+        return ok(views.html.register.render(request));
     }
 
     /**
@@ -136,8 +133,9 @@ public class UserController extends Controller {
                 jsonData.put("username", username);
                 jsonData.put("password", password);
                 JsonNode response = restfulCalls.postAPI(RESTfulCalls.getBackendAPIUrl(config, Constants.USER_LOGIN), jsonData);
+                System.out.println("Response: " + response.toString());
                 if (response.has("false") || response.has("error")) {
-                    return redirect("/login").flashing("error", "Invalid email or password");
+                    return redirect("/login").flashing("error", response.get("error").asText());
                 } else {
                     System.out.println("Pass User Authenticate... And User info: " + response.toString());
                     User curUser = Json.fromJson(response, User.class);
@@ -147,7 +145,7 @@ public class UserController extends Controller {
             }
         } catch (Exception e){
             Logger.debug("UserController.loginHandler exception: " + e);
-            return redirect(routes.HomeController.index());
+            return redirect("/");
         }
     }
     /*********************************************** END USER LOGIN ***************************************************/
@@ -161,7 +159,7 @@ public class UserController extends Controller {
         try{
             Form<User> registrationForm = formFactory.form(User.class).bindFromRequest(request);
             if (registrationForm.hasErrors()){
-                return badRequest(views.html.register.render("Fields error, please sign up again."));
+                return badRequest(views.html.register.render(request));
             }
 
             ObjectNode jsonData = (ObjectNode)(Json.toJson(registrationForm.rawData()));
@@ -170,13 +168,13 @@ public class UserController extends Controller {
                 return redirect("/login").flashing("success", "Register successfully, please log in.");
             } else{
                 Logger.debug("UserController user sign up backend error");
-                return redirect("/register").flashing("error", "Register failed, please try again.");
+                return redirect("/signup").flashing("error", "Register failed, please try again.");
             }
 
         } catch (Exception e){
             e.printStackTrace();
             Logger.debug("UserController user sign up Exception: " + e.toString());
-            return redirect("/register").flashing("error", "Register failed, please try again.");
+            return redirect("/singup").flashing("error", "Register failed, please try again.");
         }
     }
     /********************************************** END USER SIGN UP **************************************************/

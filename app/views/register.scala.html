@@ -1,4 +1,5 @@
-@(authorizeMessage: String)
+@import play.mvc.Http
+@()(implicit request: Http.Request)
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,7 +29,7 @@
         <div class="row">
             <div class="card col s4 offset-s4 ">
                 <div class="card-panel">
-                    <form action="@routes.UserController.signupHandler()" method="GET">
+                    <form action="@routes.UserController.signupHandler()" method="POST">
 
                         <div class="row">
                             <div class="input-field col s12">
@@ -59,12 +60,12 @@
                                 <label for="lastName">Last Name</label>
                             </div>
                         </div>
-                        @if(authorizeMessage!= null){
+
                             <div class="alert alert-primary" role="alert">
-                            @authorizeMessage
+                            @request.flash.get("error").orElse("Welcome to register new account in SMU-CS-HUB!")
                             </div>
                             <br>
-                        }
+
 
                         <div class="center actions row">
                             <div class="input-field col s12">

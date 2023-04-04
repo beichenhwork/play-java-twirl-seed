@@ -1,4 +1,4 @@
-# Play!Java Ebean Seed
+# Play!Java twirl Seed
 ![GitHub](https://img.shields.io/github/license/ECMGit/play-java-ebean-seed)
 
 update date: 03/09/2023  
