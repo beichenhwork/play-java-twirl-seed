@@ -2,6 +2,7 @@ package utils;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
+import play.Logger;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
@@ -15,15 +16,13 @@ public class HttpUtil {
 
     private static final String BASE_URL = "http://localhost:9005";
 
-    public static HttpResponse makeRequest (
-            String partialUrl, String httpMethod, JsonNode parameters) {
+    public static HttpResponse makeRequest (String partialUrl, String httpMethod, JsonNode parameters) {
         URL url;
         HttpURLConnection conn;
         HttpResponse response = new HttpResponse();
 
         try {
             url = new URL(BASE_URL + partialUrl);
-
             conn = (HttpsURLConnection) url.openConnection();
             conn.setDoInput(true);
             conn.setRequestProperty("Content-Type", "application/json");
@@ -46,7 +45,7 @@ public class HttpUtil {
                 response.setResponse(inputStreamToString(conn.getInputStream()));
             }
         } catch (IOException e) {
-            System.err.println("Http request failed: " + e);
+            Logger.debug("Http request failed: " + e);
         }
 
         return response;

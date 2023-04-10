@@ -1,0 +1,17 @@
+2023-04-09 19:30:34,052 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-5 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2023-04-09 19:30:34,091 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-5 - Application started (Dev) (no global state)
+2023-04-09 19:30:44,098 [DEBUG] from application in application-akka.actor.default-dispatcher-6 - RESTfulCalls.postAPI(): API Exception: java.util.concurrent.ExecutionException: java.net.ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9005
+2023-04-09 19:30:44,099 [DEBUG] from application in application-akka.actor.default-dispatcher-6 - UserController user sign up backend error
+2023-04-09 19:31:02,812 [DEBUG] from application in application-akka.actor.default-dispatcher-6 - RESTfulCalls.postAPI(): API Exception: java.util.concurrent.ExecutionException: java.net.ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9005
+2023-04-09 19:31:02,812 [DEBUG] from application in application-akka.actor.default-dispatcher-6 - UserController user sign up backend error
+2023-04-09 19:32:34,065 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - UserController user sign up backend error
+2023-04-09 19:34:30,905 [DEBUG] from application in application-akka.actor.default-dispatcher-10 - UserController user sign up backend error
+2023-04-09 19:34:47,982 [DEBUG] from application in application-akka.actor.default-dispatcher-10 - UserController user sign up backend error
+2023-04-09 19:39:27,391 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-10-thread-4 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 35000 milliseconds timeout
+2023-04-09 19:39:27,397 [INFO] from play.core.server.AkkaHttpServer in pool-10-thread-4 - Stopping Akka HTTP server...
+2023-04-09 19:39:27,408 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-8 - Terminating server binding for /0:0:0:0:0:0:0:0:9001
+2023-04-09 19:39:27,500 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-20 - Running provided shutdown stop hooks

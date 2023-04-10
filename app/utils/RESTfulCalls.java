@@ -110,7 +110,7 @@ public class RESTfulCalls {
      */
     public JsonNode postAPI(String apiString, JsonNode jsonData){
         if(WS==null){
-            Logger.info("error");
+            Logger.debug("error");
         }
         try{
             // post API call

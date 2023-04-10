@@ -66,7 +66,6 @@ public class User {
             throw new NullPointerException("User node should not be null to be serialized.");
         }
         User oneUser = Json.fromJson(json, User.class);
-
         // oneUser.setProjectZone(Project.deserialize(json.findPath("project")));
         return oneUser;
     }

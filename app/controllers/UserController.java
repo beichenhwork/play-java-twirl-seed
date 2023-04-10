@@ -70,7 +70,6 @@ public class UserController extends Controller {
                 Logger.debug("UserController.detailPage cannot find user from backend");
                 return redirect("/login").flashing("error", "There is no user, please log in again.");
             }else{
-                Logger.info("Current User Info: " + userNode.toString());
                 User curUser = Json.fromJson(userNode, User.class);
                 return ok(views.html.detail.render(curUser));
             }
@@ -93,7 +92,6 @@ public class UserController extends Controller {
                         Logger.debug("UserController.editPage cannot find user from backend");
                         return redirect("/login").flashing("error", "There is no user, please log in again.");
                     }else{
-                        Logger.info("Current Edit User Info: " + userNode.toString());
                         User curUser = Json.fromJson(userNode, User.class);
                         return ok(edit.render(curUser));
                     }
@@ -133,11 +131,9 @@ public class UserController extends Controller {
                 jsonData.put("username", username);
                 jsonData.put("password", password);
                 JsonNode response = restfulCalls.postAPI(RESTfulCalls.getBackendAPIUrl(config, Constants.USER_LOGIN), jsonData);
-                System.out.println("Response: " + response.toString());
                 if (response.has("false") || response.has("error")) {
                     return redirect("/login").flashing("error", response.get("error").asText());
                 } else {
-                    System.out.println("Pass User Authenticate... And User info: " + response.toString());
                     User curUser = Json.fromJson(response, User.class);
                     return redirect("/detail").addingToSession(request, "id", curUser.getId().toString());
                 }
@@ -172,7 +168,6 @@ public class UserController extends Controller {
             }
 
         } catch (Exception e){
-            e.printStackTrace();
             Logger.debug("UserController user sign up Exception: " + e.toString());
             return redirect("/singup").flashing("error", "Register failed, please try again.");
         }
@@ -193,10 +188,8 @@ public class UserController extends Controller {
             } else{
                 ObjectNode jsonData = (ObjectNode)(Json.toJson(userForm.rawData()));
                 // jsonData.put("id", session("id"));
-                System.out.println("User Edit Info From Page: " + jsonData.toString());
                 JsonNode response = restfulCalls.postAPI(RESTfulCalls.getBackendAPIUrl(config, Constants.USER_UPDATE_POST), jsonData);
                 if(response == null || response.has("error")){
-                    Logger.debug("User Edit Failed.");
                     return redirect("/login").flashing("error","Fail to update User Info Sorry! Please log in again. ");
                 } else{
                     User currentUser = Json.fromJson(response, User.class);
